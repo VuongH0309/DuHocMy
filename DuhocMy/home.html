@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="./img/smallLogo.png">
+    <title>DuHocMy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script language="JavaScript" src="js/logout.js"></script>
+    <script language="JavaScript" src="js/login.js"></script>
+    <script language="JavaScript" src="js/cookie.js"></script>
+
+</head>
+<body>
+
+<div class ="container-fluid">
+    <!--LOGO-->
+    <div class="row">
+        <div class="col text-center"><img src="img/duhocmy.png" alt="Logo"> </div>
+    </div>
+    <!--MAIN MENU-->
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-2">
+            <a class="btn btn-outline-primary btn-block" href="home.html">Home</a>
+        </div>
+        <div class="col-2 ">
+            <a class="btn btn-outline-primary btn-block" href="chatroom.html" target="viewFrame">Chat Room</a>
+        </div>
+        <div class="col-2"><span id="userLogin"></span></div>
+        <div class="col-2">
+            <a class="btn btn-outline-primary btn-block" href="aboutUs.html">About us</a>
+        </div>
+    </div>
+
+    <div class="row"><div class = col-sm><hr class="mb-3"></div></div>
+
+    <!--SIDE NAVIGATION-->
+
+    <div class="row">
+        <div class="col-2 border border-primary rounded" style="height:750px">
+            <!--NAVIGATING TO PROFILE IF LOGGED IN -->
+            <div class="row">
+                <div class="col">
+                    <span id="profile">
+                        <!-- NAME
+                                GO TO MY PROFILE-->
+                    </span>
+                </div>
+            </div>
+
+            <!-- MAIN MENU NAVIGATION-->
+
+            <div class="row">
+                <div class="col">
+                    <h2>Menu</h2>
+                    <a class="btn btn-info btn-block" href="findTutors.html" target="viewFrame">Find Tutors</a><br>
+                    <a class="btn btn-info btn-block"  href="findRental.html" target="viewFrame">Find Rental</a><br>
+                    <a class="btn btn-info btn-block"  href="findJob.html" target="viewFrame">Find Jobs</a><br>
+                    <a class="btn btn-info btn-block"  href="social.html" target="viewFrame">Social Connecting</a><br>
+                </div>
+            </div>
+
+            <!--NAVIGATION BY USER TYPE-->
+
+            <div class="row">
+                <div class="col">
+                    <span id="userTool">
+
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-10">
+            <iframe class="border border-primary rounded" id="viewFrame" name="viewFrame" src="findTutors.html"></iframe>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function (e){
+        if(getCookie('username') !=''){
+            $('#userLogin').append('<input type="button" class="btn btn-outline-primary btn-block" id= "logoutBtn" value="Log Out">')
+            $('#logoutBtn').click(function(e){logout();});
+            $('#profile').append('<h2>'+getCookie('username')+'</h2>');
+            $('#profile').append('<a class="btn btn-primary btn-block" href="myProfile.html" target="viewFrame">My Profile</a><br>');
+            $('#profile').append('<a class="btn btn-primary btn-block" href="editProfile.html" target="viewFrame">Edit profile</a><br>');
+
+            $('#userTool').load('userTool.html');
+            $('#viewFrame').attr('src', 'myProfile.html');
+        }
+        else if (getCookie('username') === '') {
+            $('#userLogin').append('<a class="btn btn-outline-primary btn-block" href="login.html">Log In</a>')
+        }
+
+    });
+
+
+</script>
+
+
+</body>
+</html>

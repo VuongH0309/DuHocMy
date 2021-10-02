@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="./img/smallLogo.png">
+    <title>DuHocMy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script language="JavaScript" src="js/register.js"></script>
+</head>
+<body>
+
+<div class ="container">
+    <div class ="row">
+        <!-- LOGO -->
+        <div class="col text-center">
+            <a href="login.html"><img src="./img/duhocmy.png" alt = "Logo" class = "mainLogo"></a>
+            <h1>Register</h1>
+        </div>
+    </div>
+    <div class ="row"><div class="col" ><hr class="mb-3"></div></div>
+
+    <div class="row">
+        <div class = "col-sm text-center">
+            <!-- REGISTER FORM -->
+            <form action = "register.html">
+                <img id="setAvatar" src = "img/avatar/placeholderPic.png">
+                <input id="pic" type =file accept="image/*" name ="file">
+                <input class = "btn btn-primary register" type = submit id="registerBtn" name="registerBtn" value="Sign Up">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

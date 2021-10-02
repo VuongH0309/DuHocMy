@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="./img/smallLogo.png">
+    <title>DuHocMy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script language="JavaScript" src="js/cookie.js"></script>
+    <script language="JavaScript" src="js/searchTutor.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 findTutor">
+                <h4>Find Tutors</h4>
+                <input class= "btn btn-outline-info  btn-block" type="button" value="All Tutors" id="allTutorBtn"><br>
+                <h3>Search By</h3>
+                <form>
+                    <input class= "form-control" placeholder="Tutors Name" id = "tutorsName" name="tutorsName"><br>
+                    <input class= "form-control" placeholder="Subject" id = "subject" name="subject"><br>
+                    <input class= "form-control" placeholder="Price ($/hour)" id = "price" name="price"><br>
+                    <input class="btn btn-success btn-block" type="button" id="searchBtn" value="Search"><br>
+                </form>
+
+            </div>
+            <div class="col-10 text-center">
+                <div class="container-fluid" id ="displaySubjectsBox">
+                    <h2>Result</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script language="JavaScript">
+        $(function (e){
+            $.ajax({
+                type: 'GET',
+                url: 'api/subject.php/subject',
+                success: function (data) {
+                    const subjects = JSON.parse(data);
+                    if(subjects!="No result"){
+                        $('#displaySubjectsBox').append('<div class="row" id="displaySubjects"></div>')
+                        $.each(subjects,function (index, subject){
+                            $('#displaySubjects').append(
+                                '   <div class="col-auto text-left mt-3">\n' +
+                                '       <div class="card subjectCard" style="width: 18rem;" id="subject'+subject.subjectId+'">\n' +
+                                '           <div class="card-body">\n' +
+                                '               <h5 class="card-title">Subject: '+subject.subject+'</h5>\n' +
+                                '               <h6 class="card-subtitle mb-2 text-muted">Price: $'+subject.price+'/hour</h6>\n' +
+                                '               <div class="card-text">Tutor: '+subject.tutorName+'</div>\n' +
+                                '           </div>\n' +
+                                '       </div>\n' +
+                                '   </div>\n'
+                            );
+
+                                   $("#subject"+subject.subjectId).click(function (e) {
+                                       if (getCookie("username") != "") {
+                                           if (getCookie("username") == subject.tutor){
+                                               window.location.href ="myProfile.html";
+                                           }else{
+                                               window.location.href = "userProfile.html?profileName=" + subject.tutor;
+                                           }
+                                       } else if (getCookie("username") === "") {
+                                           Swal.fire({
+                                               title: "This session is for members only",
+                                               text: "Log in to  continue",
+                                               icon: "info",
+                                               showCancelButton: true,
+                                               confirmButtonText: "Log In",
+                                           }).then((result) => {
+                                               if (result.isConfirmed) {
+                                                   window.top.location.href = "login.html";
+                                               }
+                                           });
+                                       }
+                                   });
+                        });
+                    }
+                },
+            });
+
+
+            $('#allTutorBtn').click(function (e){
+                window.location.reload();
+            });
+
+
+        });
+    </script>
+</body>
+</html>
